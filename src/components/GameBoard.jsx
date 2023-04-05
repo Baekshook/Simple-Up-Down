@@ -41,8 +41,17 @@ const GameBoard = () => {
     // 3. 랜덤 숫자와 유저가 선택한 숫자 비교
     if (randomNum === checkNum) {
       setHint("정답입니다! 랜덤 값을 초기화 합니다.");
+
+      if (point > 0) {
+        // 1. 기존의 점수 불러옴
+        let savedPoint = localStorage.getItem("point");
+        // 2. 현재 점수와 기존의 점수 합침 및 저장
+        localStorage.setItem("point", parseInt(savedPoint) + point);
+      }
+
       setRandomNum(Math.floor(Math.random() * 101));
       setChoiceNum("");
+      setPoint(5);
     } else if (randomNum > checkNum) {
       setHint(`정답은 ${checkNum}보다 높은 숫자입니다.`);
       setPoint(point - 1);
