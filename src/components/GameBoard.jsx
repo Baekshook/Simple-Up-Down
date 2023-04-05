@@ -4,6 +4,7 @@ const GameBoard = () => {
   const [hint, setHint] = useState("0 ~ 100 사이의 숫자를 맞춰보세요!");
   const [randomNum, setRandomNum] = useState(Math.floor(Math.random() * 101)); // 랜덤함수 추출 및 Math.floor로 숫자 정수화
   const [choiceNum, setChoiceNum] = useState("");
+  const [point, setPoint] = useState(5);
 
   const onChangeChoice = (e) => {
     setChoiceNum(e.target.value);
@@ -16,6 +17,10 @@ const GameBoard = () => {
   // useEffect(() => {
   //   console.log(`유저가 선택한 숫자는 ${choiceNum}입니다.`);
   // }, [choiceNum]);
+
+  useEffect(() => {
+    console.log(`현재 포인트는 ${point}입니다.`);
+  }, [point]);
 
   const onClickCheck = (e) => {
     e.preventDefault(); // onSubmit 실행시 e.preventDefault() 없이 엔터키를 누르면 항상 새로고침 되기에 새로고침을 막는 기능
@@ -37,10 +42,15 @@ const GameBoard = () => {
     if (randomNum === checkNum) {
       setHint("정답입니다! 랜덤 값을 초기화 합니다.");
       setRandomNum(Math.floor(Math.random() * 101));
+      setChoiceNum("");
     } else if (randomNum > checkNum) {
       setHint(`정답은 ${checkNum}보다 높은 숫자입니다.`);
+      setPoint(point - 1);
+      setChoiceNum("");
     } else if (randomNum < checkNum) {
       setHint("정답은 " + checkNum + "보다 낮은 숫자입니다."); // `` 쓰지 않고 사용하는 방법
+      setPoint(point - 1);
+      setChoiceNum("");
     }
   };
 
@@ -54,6 +64,7 @@ const GameBoard = () => {
             type="text"
             value={choiceNum}
             onChange={onChangeChoice}
+            placeholder="숫자를 입력하세요."
           />
           <input
             className="px-4 py-2 ml-2 rounded-lg border-2 border-pink-300 text-pink-300 shadow-lg"
