@@ -17,7 +17,9 @@ const GameBoard = () => {
   //   console.log(`유저가 선택한 숫자는 ${choiceNum}입니다.`);
   // }, [choiceNum]);
 
-  const onClickCheck = () => {
+  const onClickCheck = (e) => {
+    e.preventDefault(); // onSubmit 실행시 e.preventDefault() 없이 엔터키를 누르면 항상 새로고침 되기에 새로고침을 막는 기능
+
     // 1. 문자 입력시 setHint 변환
     let checkNum = parseInt(choiceNum);
     if (isNaN(checkNum)) {
@@ -46,18 +48,25 @@ const GameBoard = () => {
     <div className=" w-full grow flex flex-col justify-center items-center">
       <div className="mb-4 text-xl font-bold">{hint}</div>
       <div>
-        <input
-          className="border-2 rounded-lg px-4 py-2 focus:outline-pink-300 shadow-lg"
-          type="text"
-          value={choiceNum}
-          onChange={onChangeChoice}
-        />
-        <button
+        <form onSubmit={onClickCheck}>
+          <input
+            className="border-2 rounded-lg px-4 py-2 focus:outline-pink-300 shadow-lg"
+            type="text"
+            value={choiceNum}
+            onChange={onChangeChoice}
+          />
+          <input
+            className="px-4 py-2 ml-2 rounded-lg border-2 border-pink-300 text-pink-300 shadow-lg"
+            type="submit"
+            value="확인"
+          />
+          {/* <button
           onClick={onClickCheck}
           className="px-4 py-2 ml-2 rounded-lg border-2 border-pink-300 text-pink-300 shadow-lg"
         >
           확인
-        </button>
+        </button> */}
+        </form>
       </div>
     </div>
   );
