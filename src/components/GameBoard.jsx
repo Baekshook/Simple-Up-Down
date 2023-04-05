@@ -13,6 +13,11 @@ const GameBoard = () => {
     console.log(`랜덤 숫자는 ${randomNum}입니다.`);
   }, [randomNum]); // 의존성 배열 값 변할때 마다 useEffect 실행됨 (randomNum 추적하는 기능으로 쓰여짐)
 
+  useEffect(() => {
+    console.log(`유저가 선택한 숫자는 ${choiceNum}입니다.`);
+  }, [choiceNum]);
+
+
   return (
     <div className=" w-full grow flex flex-col justify-center items-center">
       <div className="mb-4 text-xl font-bold">{hint}</div>
