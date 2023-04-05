@@ -33,11 +33,12 @@ const GameBoard = () => {
 
     // 3. 랜덤 숫자와 유저가 선택한 숫자 비교
     if (randomNum === checkNum) {
-      setHint("정답입니다!");
+      setHint("정답입니다! 랜덤 값을 초기화 합니다.");
+      setRandomNum(Math.floor(Math.random() * 101));
     } else if (randomNum > checkNum) {
       setHint(`정답은 ${checkNum}보다 높은 숫자입니다.`);
     } else if (randomNum < checkNum) {
-      setHint(`정답은 ${checkNum}보다 낮은 숫자입니다.`);
+      setHint("정답은 " + checkNum + "보다 낮은 숫자입니다."); // `` 쓰지 않고 사용하는 방법
     }
   };
 
