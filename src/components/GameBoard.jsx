@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../App";
 
 const GameBoard = () => {
   const [hint, setHint] = useState("0 ~ 100 사이의 숫자를 맞춰보세요!");
-  const [randomNum, setRandomNum] = useState(Math.floor(Math.random() * 101)); // 랜덤함수 추출 및 Math.floor로 숫자 정수화
+  const { myPoint, setMyPoint } = useContext(AppContext);
+  const [randomNum, setRandomNum] = useState(
+    Math.floor(Math.random() * 100) + 1
+  ); // 랜덤함수 추출 및 Math.floor로 숫자 정수화
   const [choiceNum, setChoiceNum] = useState("");
   const [point, setPoint] = useState(5);
 
@@ -44,12 +48,12 @@ const GameBoard = () => {
 
       if (point > 0) {
         // 1. 기존의 점수 불러옴
-        let savedPoint = localStorage.getItem("point");
+        localStorage.setItem("point", parseInt(myPoint) + point);
         // 2. 현재 점수와 기존의 점수 합침 및 저장
-        localStorage.setItem("point", parseInt(savedPoint) + point);
+        setMyPoint(localStorage.getItem("point"));
       }
 
-      setRandomNum(Math.floor(Math.random() * 101));
+      setRandomNum(Math.floor(Math.random() * 100) + 1);
       setChoiceNum("");
       setPoint(5);
     } else if (randomNum > checkNum) {
